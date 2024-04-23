@@ -1,0 +1,17 @@
+ion-content{
+    text-align: center;
+
+    .usersPokemonImage{
+        width: 400%;
+        position: absolute; bottom: -50; left: -100px;
+    }
+
+    .computerPokemonImage{
+        width: 50%;
+        position: absolute; top: -100; right: 0;
+    }
+}
+
+ion-footer{
+    text-align: center;
+}

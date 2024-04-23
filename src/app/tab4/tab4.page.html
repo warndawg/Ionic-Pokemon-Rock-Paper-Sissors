@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Battle Arena</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Battle Arena</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ng-container *ngIf="results">
+    <ng-container *ngFor="let pokemon of selectedPokemon">
+      <img [src]="pokemon.sprites.back_default" [alt]="pokemon.name" class="usersPokemonImage">
+      <ng-container *ngFor="let computerPokemon of computersPokemonDetails">
+        <img [src]="computerPokemon.sprites.front_default" [alt]="computerPokemon.name" class="computerPokemonImage">
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  {{results}}
+  <ion-button  *ngIf="selectedPokemonType && computersPokemonType && !results" (click)="findWinner(selectedPokemonType, computersPokemonType)" class="battleButton">
+    Battle
+  </ion-button>
+  <ion-button *ngIf="results" (click)="playAgain()" class="resetButton">
+    Play Again
+  </ion-button>
+</ion-content>
+<ion-footer *ngIf="userSelectService.usersFirePokemon && userSelectService.usersWaterPokemon && userSelectService.usersGrassPokemon">
+  <ion-toolbar>
+    <ion-button color="primary" *ngIf="userSelectService.usersFirePokemonSprite" 
+      (click)="getSelectedPokemonDetails(userSelectService.usersFirePokemonId, 'fire')"
+      [disabled]="selectedPokemonType">
+      <img [src]="userSelectService.usersFirePokemonSprite" [alt]="userSelectService.usersFirePokemon">
+      Fire
+    </ion-button>
+    <ion-button color="secondary" *ngIf="userSelectService.usersWaterPokemonSprite" 
+      (click)="getSelectedPokemonDetails(userSelectService.usersWaterPokemonId, 'water')"
+      [disabled]="selectedPokemonType">
+      <img [src]="userSelectService.usersWaterPokemonSprite" [alt]="userSelectService.usersWaterPokemon">
+      Water
+    </ion-button>
+    <ion-button  color="tertiary" *ngIf="userSelectService.usersGrassPokemonSprite" 
+    (click)="getSelectedPokemonDetails(userSelectService.usersGrassPokemonId, 'grass')"
+    [disabled]="selectedPokemonType">
+      <img [src]="userSelectService.usersGrassPokemonSprite" [alt]="userSelectService.usersGrassPokemon">
+      Grass
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

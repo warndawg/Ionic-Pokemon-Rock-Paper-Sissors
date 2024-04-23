@@ -1,17 +1,49 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-title>
-      Tab 3
+      Grass Pokemon
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+    <ion-toolbar color="tertiary">
+      <ion-title size="large">Grass Pokemon</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <h1 class="ion-padding-start ion-padding-end">
+    Pick your grass type Pokemon
+  </h1>
+    <ng-container *ngIf="!userSelectService.usersGrassPokemon">
+      <ng-container *ngFor="let details of grassDetails">
+        <ion-card 
+          *ngIf="details.sprites.front_default && details.sprites.back_default" 
+          [button]="true" class="ion-center"
+          (click)="grassPokemonSelect(
+            'grass', 
+            details.name, 
+            details.sprites.front_default,
+            details.id)"   
+        >
+          <ion-ripple-effect></ion-ripple-effect>
+          <img [src]="details.sprites.front_default" alt="pokemon" class="pokemon">
+            <ion-card-header >
+                <ion-card-title>{{details.name}}</ion-card-title>
+                <ion-card-subtitle>I Choose You</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="userSelectService.usersGrassPokemon">
+      <ion-card>
+        <img [src]="userSelectService.usersGrassPokemonSprite" alt="pokemon" class="pokemon">
+        <ion-card-header>
+          <ion-card-title>{{userSelectService.usersGrassPokemon}}</ion-card-title>
+          <ion-card-subtitle>Your choosen grass Pokemon is</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+      <ion-button (click)="clearPokemon()">Pick a new grass Pokemon</ion-button>
+    </ng-container>
 </ion-content>
